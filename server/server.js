@@ -66,7 +66,8 @@ io.on('connection',client=>{
         }
 
         const vel = getUpdatedVelocity(keyCode);
-
+        client.emit('scoreone',state[room].players[0].score);
+        client.emit('scoretwo',state[room].players[1].score);
         if(vel){
             state[roomName].players[client.number-1].vel = vel;
         }

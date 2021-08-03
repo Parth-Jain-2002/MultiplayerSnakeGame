@@ -66,8 +66,6 @@ io.on('connection',client=>{
         }
 
         const vel = getUpdatedVelocity(keyCode);
-        client.emit('scoreone',state[room].players[0].score);
-        client.emit('scoretwo',state[room].players[1].score);
         if(vel){
             state[roomName].players[client.number-1].vel = vel;
         }
@@ -93,6 +91,10 @@ function startGameInterval(roomName){
 function emitGameState(roomName,state){
     io.sockets.in(roomName)
     .emit('gameState',JSON.stringify(state));
+    io.sockets.in(roomName)
+    .emit('scoreone',state.players[0].score);
+    io.sockets.in(roomName)
+    .emit('scoretwo',state.players[1].score);
 }
 
 function emitGameOver(roomName, winner){

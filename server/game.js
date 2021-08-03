@@ -20,7 +20,7 @@ function createGameState(){
                 y:10,
             },
             vel: {
-                x:1,
+                x:0,
                 y:0,
             },
             snake: [
@@ -58,7 +58,18 @@ function gameLoop(state){
     const playerOne = state.players[0];
     const playerTwo = state.players[1];
 
-    
+    function win(){
+        if(playerOne.score===playerTwo.score){
+            return 0;
+        }
+        if(playerOne.score>playerTwo.score){
+            return 1;
+        }
+        if(playerOne.score<playerTwo.score){
+            return 2;
+        }
+    }
+
     playerOne.pos.x += playerOne.vel.x;
     playerOne.pos.y += playerOne.vel.y;
     playerTwo.pos.x += playerTwo.vel.x;
@@ -66,18 +77,19 @@ function gameLoop(state){
 
     if(playerOne.pos.x <0 || playerOne.pos.x>GRID_SIZE ||
         playerOne.pos.y <0 || playerOne.pos.y>GRID_SIZE){
-            return 2;
+            return win();
         }
     
     if(playerTwo.pos.x <0 || playerTwo.pos.x>GRID_SIZE ||
         playerTwo.pos.y <0 || playerTwo.pos.y>GRID_SIZE){
-            return 1;
+            return win();
         }
 
     if(state.food.x === playerOne.pos.x && state.food.y === playerOne.pos.y){
         playerOne.snake.push({ ...playerOne.pos});
         playerOne.pos.x += playerOne.vel.x;
         playerOne.pos.y += playerOne.vel.y;
+        playerOne.score += 1;
         randomFood(state);
     }
     
@@ -85,13 +97,14 @@ function gameLoop(state){
         playerTwo.snake.push({ ...playerTwo.pos});
         playerTwo.pos.x += playerTwo.vel.x;
         playerTwo.pos.y += playerTwo.vel.y;
+        playerTwo.score += 1;
         randomFood(state);
     }
 
     if(playerOne.vel.x || playerOne.vel.y){
         for(let cell of playerOne.snake){
             if(cell.x === playerOne.pos.x && cell.y === playerOne.pos.y){
-                return 2;
+                return win();
             }
         }
         playerOne.snake.push({...playerOne.pos});
@@ -101,7 +114,7 @@ function gameLoop(state){
     if(playerTwo.vel.x || playerTwo.vel.y){
         for(let cell of playerTwo.snake){
             if(cell.x === playerTwo.pos.x && cell.y === playerTwo.pos.y){
-                return 1;
+                return win();
             }
         }
         playerTwo.snake.push({...playerTwo.pos});

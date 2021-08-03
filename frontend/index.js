@@ -114,7 +114,7 @@ function handleScoreone(scoreone){
     scoreoneDisplay.innerText = scoreone;
 }
 
-function handleScoreone(scoretwo){
+function handleScoretwo(scoretwo){
     scoretwoDisplay.innerText = scoretwo;
 }
 

@@ -28,6 +28,7 @@ function createGameState(){
                {x:2,y:10},
                {x:3,y:10},
             ],
+            score:0,
         },{
             pos:{
                 x:18,
@@ -42,6 +43,7 @@ function createGameState(){
                {x:19,y:10},
                {x:18,y:10},
             ],
+            score:0,
         }],
         food:{},
         gridsize:GRID_SIZE,

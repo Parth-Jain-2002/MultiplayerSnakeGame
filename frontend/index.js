@@ -100,7 +100,7 @@ function handleGameOver(data){
     if(data.winner===3){
         alert('Match tied!');
     }
-    if(data.winner === playerNumber){
+    else if(data.winner === playerNumber){
         alert('You win!');
     }
     else{

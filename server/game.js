@@ -81,6 +81,8 @@ function gameLoop(state){
     if(playerOne.pos.x <0 || playerOne.pos.x>GRID_SIZE ||
         playerOne.pos.y <0 || playerOne.pos.y>GRID_SIZE){
             playerOne.dead=true;
+            playerOne.vel.x=0;
+            playerOne.vel.y=0;
             if(playerOne.dead===true && playerTwo.dead===true){
                 return win();
             }
@@ -89,6 +91,8 @@ function gameLoop(state){
     if(playerTwo.pos.x <0 || playerTwo.pos.x>GRID_SIZE ||
         playerTwo.pos.y <0 || playerTwo.pos.y>GRID_SIZE){
             playerTwo.dead=true;
+            playerTwo.vel.x=0;
+            playerTwo.vel.y=0;
             if(playerOne.dead===true && playerTwo.dead===true){
                 return win();
             }
@@ -114,6 +118,8 @@ function gameLoop(state){
         for(let cell of playerOne.snake){
             if(cell.x === playerOne.pos.x && cell.y === playerOne.pos.y){
                 playerOne.dead=true;
+                playerOne.vel.x=0;
+                playerOne.vel.y=0;
                 if(playerOne.dead===true && playerTwo.dead===true){
                 return win();
                 }
@@ -127,6 +133,8 @@ function gameLoop(state){
         for(let cell of playerTwo.snake){
             if(cell.x === playerTwo.pos.x && cell.y === playerTwo.pos.y){
                 playerTwo.dead=true;
+                playerTwo.vel.x=0;
+                playerTwo.vel.y=0;
                 if(playerOne.dead===true && playerTwo.dead===true){
                 return win();
                 }

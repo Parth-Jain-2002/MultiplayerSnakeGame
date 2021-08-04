@@ -28,6 +28,7 @@ function createGameState(){
                {x:3,y:10},
             ],
             score:0,
+            dead:false,
         },{
             pos:{
                 x:14,
@@ -42,6 +43,7 @@ function createGameState(){
                {x:14,y:15},
             ],
             score:0,
+            dead:false,
         }],
         food:{},
         gridsize:GRID_SIZE,
@@ -58,7 +60,7 @@ function gameLoop(state){
 
     function win(){
         if(playerOne.score===playerTwo.score){
-            return 0;
+            return 3;
         }
         if(playerOne.score>playerTwo.score){
             return 1;
@@ -67,20 +69,29 @@ function gameLoop(state){
             return 2;
         }
     }
-
-    playerOne.pos.x += playerOne.vel.x;
-    playerOne.pos.y += playerOne.vel.y;
-    playerTwo.pos.x += playerTwo.vel.x;
-    playerTwo.pos.y += playerTwo.vel.y;
-
+    if(playerOne.dead===false){
+        playerOne.pos.x += playerOne.vel.x;
+        playerOne.pos.y += playerOne.vel.y;    
+    }
+    if(playerTwo.dead===false){
+        playerTwo.pos.x += playerTwo.vel.x;
+        playerTwo.pos.y += playerTwo.vel.y; 
+    }
+    
     if(playerOne.pos.x <0 || playerOne.pos.x>GRID_SIZE ||
         playerOne.pos.y <0 || playerOne.pos.y>GRID_SIZE){
-            return win();
+            playerOne.dead=true;
+            if(playerOne.dead===true && playerTwo.dead===true){
+                return win();
+            }
         }
     
     if(playerTwo.pos.x <0 || playerTwo.pos.x>GRID_SIZE ||
         playerTwo.pos.y <0 || playerTwo.pos.y>GRID_SIZE){
-            return win();
+            playerTwo.dead=true;
+            if(playerOne.dead===true && playerTwo.dead===true){
+                return win();
+            }
         }
 
     if(state.food.x === playerOne.pos.x && state.food.y === playerOne.pos.y){
@@ -102,7 +113,10 @@ function gameLoop(state){
     if(playerOne.vel.x || playerOne.vel.y){
         for(let cell of playerOne.snake){
             if(cell.x === playerOne.pos.x && cell.y === playerOne.pos.y){
+                playerOne.dead=true;
+                if(playerOne.dead===true && playerTwo.dead===true){
                 return win();
+                }
             }
         }
         playerOne.snake.push({...playerOne.pos});
@@ -112,7 +126,10 @@ function gameLoop(state){
     if(playerTwo.vel.x || playerTwo.vel.y){
         for(let cell of playerTwo.snake){
             if(cell.x === playerTwo.pos.x && cell.y === playerTwo.pos.y){
+                playerTwo.dead=true;
+                if(playerOne.dead===true && playerTwo.dead===true){
                 return win();
+                }
             }
         }
         playerTwo.snake.push({...playerTwo.pos});

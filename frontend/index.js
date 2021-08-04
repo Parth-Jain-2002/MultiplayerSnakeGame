@@ -97,7 +97,7 @@ function handleGameOver(data){
         return;
     }
     data= JSON.parse(data);
-    if(data.winner===0){
+    if(data.winner===3){
         alert('Match tied!');
     }
     if(data.winner === playerNumber){

@@ -97,12 +97,16 @@ function handleGameOver(data){
         return;
     }
     data= JSON.parse(data);
+    if(data.winner===0){
+        alert('Match tied!');
+    }
     if(data.winner === playerNumber){
         alert('You win!');
     }
     else{
         alert("You lose!");
     }
+
     gameActive = false;
 }
 

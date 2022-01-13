@@ -1,0 +1,5 @@
+Improvenment to be done in some of the aspects of the game:-
+1) On some devices, the code isn't flashed. Maybe due to CORS issue, calling from one site to another. 
+2) As soon as the game finishes, there is no way to reset the game.
+3) The snake has no clear head, so its difficult at the beginning of the game to identify where it is pointing.
+4) As soon as the snake touches the wall, it should be stop. But presently, that is not happening
